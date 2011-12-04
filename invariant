@@ -2618,8 +2618,7 @@ __
 meta::function('reload', 'around_hook(\'reload\', sub {execute($_) for grep ! /^bootstrap::/, keys %data});');
 meta::function('render', <<'__');
 around_hook('render', @_, sub {
-  file::write("$_.js",     sdoc("module::$_")) for modules();
-  file::write('test.html', retrieve('pp::html::test'))});
+  file::write("$_.js", sdoc("module::$_")) for modules()});
 
 __
 meta::function('repl', <<'__');
