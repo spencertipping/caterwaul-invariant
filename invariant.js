@@ -3,8 +3,7 @@
 
 // Introduction.
 // This module reduces state management to an invariant definition. You then provide it with state transitions and it propagates those changes as necessary to preserve the invariants that you've
-// specified. You can add and remove nodes from the graph at any point, and you can write your own node types that govern how propagation takes place. This library provides several built-in node
-// types that handle things like caching and retrying.
+// specified. You can add and remove nodes from the graph at any point, and you can write your own node types and edge behaviors that govern how propagation takes place.
 
 // Graphs are made of nodes connected with edges. Nodes determine state-preservation and change propagation behavior. So, for example, here's how you would design a trivial RPC-based web app
 // given this model:
@@ -50,4 +49,62 @@
 //   view <-> RPC  ...  filter(RPC) <-> database
 
 // The secondary RPC node maintains the filter state; as the view changes, it updates this RPC and the filter is updated remotely.
+
+// Change propagation.
+// Changes are signaled by invoking a node on a new value. The node then returns a future that will be delivered when the change propagation is complete. The future returns one of two values. If
+// the propagation was successful, it returns the new value. Otherwise it returns null, indicating that the update was canceled.
+
+// As mentioned above, nodes aren't constrained to single values. It's up to the node how values are propagated. For instance, you could have a single node representing a database, and it could
+// receive and send objects with IDs:
+
+// | {id: ..., prop1: ..., prop2: ...., ...} -> database -> listener -> RPC  ...  RPC -> view
+
+// Each node is uniquely identified with a gensym and maintains a connection table with links to other nodes. This connection table is updated automatically with the to() method; you don't need
+// to manage it.
+
+// Edges.
+// Edges are not first-class objects, but edge behaviors are configured on a node pair basis. The graph is undirected, so for all nodes n1 and n2, n1.to(x, n2) is the same as n2.to(x, n1). The
+// 'to' method sets the behavior of a given edge:
+
+// | node1 / behavior /~to/ node2                  // sets the propagation behavior of the edge
+//   node1 / false /~to/ node2                     // sets no connection between the edges
+//   node1 / silent_edge /~to/ node2               // disables propagation, but leaves the connection there (less overhead than removing it)
+
+// Propagation behavior is defined as a function that takes a value and a destination node and returns a future. The future returned will be used to confirm that the value was propagated through
+// the system. For a simple linear propagator, the behavior function is just this:
+
+// | linear_edge(v, visited, node) = node(v, visited)
+//   silent_edge(v, visited, node) = future()(v)           // delivered immediately; we want to signal success
+//   fail_edge(v, visited, node)   = future()(null)        // signal failure immediately
+
+// This API was designed to operate strictly within value-space; that is, a single method with a single variant parameter governs the behavior of any given edge. The reason for this is that it's
+// often useful to use one node graph to govern the topology of another node graph (such as in the RPC-governed filter case above).
+
+caterwaul('js_all')(function ($) {
+  $.invariant = wcapture [node(behavior)             = n /-$.merge/ wcapture [to(b, p)          = n -se- set_edge(b, p) -se- set_sibling(b, p),
+                                                                              send(v, visited)  = behavior(n, v, seen) -where [seen = (visited || {}) -se [it[id] = n]],
+
+                                                                              set_edge(b, p)    = b ? (siblings[p.id] = p, p.siblings[id] = n) : (delete siblings[p.id], delete p.siblings[id]),
+                                                                              set_sibling(b, p) = b ? edges[p.id] = p.edges[id] = b            : (delete edges[p.id],    delete p.edges[id]),
+
+                                                                              id                = gensym(),
+                                                                              edges             = {},
+                                                                              siblings          = {}]
+
+                                                                      -where [n() = n.send.apply(n, arguments)],
+
+                          // Node behaviors
+                          node_repeat()(n, v, seen)  = n.edges %k%![seen[x]] /pairs *[x[1](v, seen, siblings[x[0]])] /seq /!future /~map/ "v".qf -where [siblings = n.siblings],
+                          node_cache(eq)(n, v, seen) = !eq(v, n.val()),
+
+                          // Node functors
+                          filter_node(f)(n)          = node(f(v) ? n(v, seen) : future()(v), given [v, seen]),
+
+                          // Edge behaviors
+                          linear_edge(v, visited, n) = n(v, visited),
+                          silent_edge(v, visited, n) = future()(v),
+                          fail_edge(v, visited, n)   = future()(null)],
+
+  using.caterwaul})(caterwaul);
+
 // Generated by SDoc 
