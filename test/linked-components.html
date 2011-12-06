@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+  <head>
+  <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js'></script>
+  <script src='http://caterwauljs.org/build/caterwaul.min.js'></script>
+  <script src='http://caterwauljs.org/build/caterwaul.std.min.js'></script>
+  <script src='http://caterwauljs.org/build/caterwaul.ui.min.js'></script>
+  <script src='http://spencertipping.com/caterwaul-futures/future.js'></script>
+  <script src='../invariant.js'></script>
+
+  <script>
+  $(caterwaul('js_all jquery')(function () {
+    $('body') / t1 / t2 / t3 /~append/ hub_ui
+
+    -where [hub               = node(node_repeat()),
+            hub_ui            = jquery [pre] -se- hub.signal() /~se/ "it /~text/ _".qf,
+
+            connected_input() = jquery in input %connected %broadcasting,
+            connected(e)      = e.data('node', node(repeat(n, v, seen) -se- e.val(v) -given [n, v, seen]) / linear_edge /~to/ hub) -where [repeat = node_repeat()],
+            broadcasting(e)   = e.blur(given.event in e.data('node')(e.val())),
+
+            t1                = connected_input(),
+            t2                = connected_input(),
+            t3                = connected_input()]
+
+    -using- caterwaul.invariant}));
+  </script>
+  </head>
+  <body></body>
+</html>

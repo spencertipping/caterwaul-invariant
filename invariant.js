@@ -82,7 +82,9 @@
 
 caterwaul('js_all')(function ($) {
   $.invariant = wcapture [node(behavior)             = n /-$.merge/ wcapture [to(b, p)          = n -se- set_edge(b, p) -se- set_sibling(b, p),
-                                                                              send(v, visited)  = behavior(n, v, seen) -where [seen = (visited || {}) -se [it[id] = n]],
+                                                                              send(v, visited)  = behavior(n, v, seen) -se- broadcast(v) -where [seen = (visited || {}) -se [it[id] = n]],
+                                                                              unlink()          = n -se- siblings *![x / false /~to/ n] /seq,
+                                                                              signal()          = broadcast,
 
                                                                               set_edge(b, p)    = b ? (siblings[p.id] = p, p.siblings[id] = n) : (delete siblings[p.id], delete p.siblings[id]),
                                                                               set_sibling(b, p) = b ? edges[p.id] = p.edges[id] = b            : (delete edges[p.id],    delete p.edges[id]),
@@ -91,7 +93,8 @@ caterwaul('js_all')(function ($) {
                                                                               edges             = {},
                                                                               siblings          = {}]
 
-                                                                      -where [n() = n.send.apply(n, arguments)],
+                                                                      -where [n()       = n.send.apply(n, arguments),
+                                                                              broadcast = caterwaul.future()],
 
                           // Node behaviors
                           node_repeat()(n, v, seen)  = n.edges %k%![seen[x]] /pairs *[x[1](v, seen, siblings[x[0]])] /seq /!future /~map/ "v".qf -where [siblings = n.siblings],
