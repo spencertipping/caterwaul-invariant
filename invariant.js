@@ -95,7 +95,6 @@ caterwaul('js_all')(function ($) {
 
                                                                       -where [n()       = n.send.apply(n, arguments),
                                                                               broadcast = caterwaul.future()],
-
                           // Node behaviors
                           node_repeat()(n, v, seen)  = n.edges %k%![seen[x]] /pairs *[x[1](v, seen, siblings[x[0]])] /seq /!future /~map/ "v".qf -where [siblings = n.siblings],
                           node_cache(eq)(n, v, seen) = !eq(v, n.val()),
