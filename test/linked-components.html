@@ -13,7 +13,7 @@
     $('body') / t1 / t2 / t3 /~append/ hub_ui
 
     -where [hub               = node(node_repeat()),
-            hub_ui            = jquery [pre] -se- hub.signal() /~se/ "it /~text/ _".qf,
+            hub_ui            = jquery [pre] -se- hub.signal() /~push/ "it /~text/ _".qf,
 
             connected_input() = jquery in input %connected %broadcasting,
             connected(e)      = e.data('node', node(repeat(n, v, seen) -se- e.val(v) -given [n, v, seen]) / linear_edge /~to/ hub) -where [repeat = node_repeat()],
