@@ -81,9 +81,9 @@ This API was designed to operate strictly within value-space; that is, a single 
 often useful to use one node graph to govern the topology of another node graph (such as in the RPC-governed filter case above).
 
 caterwaul.module('invariant', 'js_all', function ($) {
-  $.invariant = wcapture [node(behavior)             = n /-$.merge/ wcapture [to(b, p)          = n -se- set_edge(b, p) -se- set_sibling(b, p),
+  $.invariant = wcapture [node(behavior)             = n /-$.merge/ wcapture [to(b, p)          = set_edge(b, p) -then- set_sibling(b, p) -then- n,
                                                                               send(v, visited)  = behavior(n, v, seen) -se- broadcast(v) -where [seen = (visited || {}) -se [it[id] = n]],
-                                                                              unlink()          = n -se- siblings *![x / false /~to/ n] /seq,
+                                                                              unlink()          = siblings *![x / false /~to/ n] /seq -then- n,
                                                                               signal()          = broadcast,
 
                                                                               set_edge(b, p)    = b ? (siblings[p.id] = p, p.siblings[id] = n) : (delete siblings[p.id], delete p.siblings[id]),
