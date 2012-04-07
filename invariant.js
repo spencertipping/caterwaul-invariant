@@ -16,7 +16,7 @@ return b?edges[p.id] =p.edges[id] =b: (delete edges[p.id] ,delete p.edges[id] ) 
 return{to:to,send:send,unlink:unlink,signal:signal,set_edge:set_edge,set_sibling:set_sibling,id:id,edges:edges,siblings:siblings} } ) .call(this) ) } ) .call(this) } ,node_repeat=function() {;
 return function(n,v,seen) {;
 return(function() {var siblings=n.siblings;
-return(future( (function(xs) {var x,x0,xi,xl,xr;
+return($.future( (function(xs) {var x,x0,xi,xl,xr;
 for(var xr=new xs.constructor() ,xi=0,xl=xs.length;
 xi<xl;
  ++xi)x=xs[xi] ,xr.push( (x[1] (v,seen,siblings[x[0] ] ) ) ) ;
