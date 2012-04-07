@@ -12,7 +12,7 @@ xi<xl;
 return xs} ) .call(this,siblings) ,n) } ,signal=function() {;
 return broadcast} ,set_edge=function(b,p) {;
 return b? (siblings[p.id] =p,p.siblings[id] =n) : (delete siblings[p.id] ,delete p.siblings[id] ) } ,set_sibling=function(b,p) {;
-return b?edges[p.id] =p.edges[id] =b: (delete edges[p.id] ,delete p.edges[id] ) } ,id=gensym() ,edges= {} ,siblings= {} ;
+return b?edges[p.id] =p.edges[id] =b: (delete edges[p.id] ,delete p.edges[id] ) } ,id=$.gensym() ,edges= {} ,siblings= {} ;
 return{to:to,send:send,unlink:unlink,signal:signal,set_edge:set_edge,set_sibling:set_sibling,id:id,edges:edges,siblings:siblings} } ) .call(this) ) } ) .call(this) } ,node_repeat=function() {;
 return function(n,v,seen) {;
 return(function() {var siblings=n.siblings;

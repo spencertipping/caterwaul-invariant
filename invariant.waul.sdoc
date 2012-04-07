@@ -89,7 +89,7 @@ caterwaul.module('invariant', 'js_all', function ($) {
                                                                               set_edge(b, p)    = b ? (siblings[p.id] = p, p.siblings[id] = n) : (delete siblings[p.id], delete p.siblings[id]),
                                                                               set_sibling(b, p) = b ? edges[p.id] = p.edges[id] = b            : (delete edges[p.id],    delete p.edges[id]),
 
-                                                                              id                = gensym(),
+                                                                              id                = $.gensym(),
                                                                               edges             = {},
                                                                               siblings          = {}]
 
