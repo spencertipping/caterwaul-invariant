@@ -100,9 +100,9 @@ caterwaul.module('invariant', 'js_all', function ($) {
                           node_cache(eq)(n, v, seen) = !eq(v, n.val()),
 
                           // Node functors
-                          filter_node(f)(n)          = node(f(v) ? n(v, seen) : future()(v), given [v, seen]),
+                          filter_node(f)(n)          = node(f(v) ? n(v, seen) : $.future()(v), given [v, seen]),
 
                           // Edge behaviors
                           linear_edge(v, visited, n) = n(v, visited),
-                          silent_edge(v, visited, n) = future()(v),
-                          fail_edge(v, visited, n)   = future()(null)], using.caterwaul});
+                          silent_edge(v, visited, n) = $.future()(v),
+                          fail_edge(v, visited, n)   = $.future()(null)]});

@@ -1,5 +1,4 @@
-caterwaul.module( 'invariant' , (function(e) {var result= (function($) { (function() {var deglobalize=e.deglobalize,core_initializer=e.core_initializer,context=e.context,merge=e.merge,modules=e.modules,module=e.module,map=e.map,rmap=e.rmap,gensym=e.gensym,is_gensym=e.is_gensym,gensym_entropy=e.gensym_entropy,syntax_common=e.syntax_common,syntax_subclasses=e.syntax_subclasses,syntax_subclass=e.syntax_subclass,syntax_extend=e.syntax_extend,parse_hex=e.parse_hex,parse_octal=e.parse_octal,unescape_string=e.unescape_string,javascript_tree_type_methods=e.javascript_tree_type_methods,javascript_tree_metadata_methods=e.javascript_tree_metadata_methods,javascript_tree_serialization_methods=e.javascript_tree_serialization_methods,ref_common=e.ref_common,ref=e.ref,expression_ref=e.expression_ref,metadata_node=e.metadata_node,opaque_tree=e.opaque_tree,syntax=e.syntax,empty=e.empty,parse=e.parse,compile=e.compile,syntax_to_expression=e.syntax_to_expression,late_bound_tree=e.late_bound_tree,gensym_rename_table=e.gensym_rename_table,init=e.init,initializer=e.initializer,clone=e.clone,replicator=e.replicator,waul_initializer=e.waul_initializer,all=e.all,pattern=e.pattern,expander=e.expander,alternatives=e.alternatives,reexpander=e.reexpander,replacer=e.replacer,rereplacer=e.rereplacer,macroexpand=e.macroexpand,anonymizer=e.anonymizer,js=e.js,js_literals=e.js_literals,words=e.words,grammar=e.grammar,std_initializer=e.std_initializer,js_all=e.js_all,jquery=e.jquery,ui_initializer=e.ui_initializer;
-return $.invariant= (function() {var node=function(behavior) {;
+caterwaul.module( 'invariant' ,function($) {$.invariant= (function() {var node=function(behavior) {;
 return(function() {var n=function() {;
 return n.send.apply(n,arguments) } ,broadcast=$.future() ;
 return $.merge(n, (function() {var to=function(b,p) {;
@@ -30,10 +29,8 @@ return xr} ) .call(this,n.edges) ) ) ) ) ) .map(function(_) {return v} ) } ) .ca
 return function(n,v,seen) {;
 return!eq(v,n.val() ) } } ,filter_node=function(f) {;
 return function(n) {;
-return node( (function(v,seen) {return f(v) ?n(v,seen) :future() (v) } ) ) } } ,linear_edge=function(v,visited,n) {;
+return node( (function(v,seen) {return f(v) ?n(v,seen) :$.future() (v) } ) ) } } ,linear_edge=function(v,visited,n) {;
 return n(v,visited) } ,silent_edge=function(v,visited,n) {;
-return future() (v) } ,fail_edge=function(v,visited,n) {;
-return future() (null) } ;
-return{node:node,node_repeat:node_repeat,node_cache:node_cache,filter_node:filter_node,linear_edge:linear_edge,silent_edge:silent_edge,fail_edge:fail_edge} } ) .call(this) } ) .call(this) } ) ;
-result.caterwaul_expression_ref_table= {e: ( "caterwaul" ) } ;
-return(result) } ) .call(this,caterwaul) ) ;
+return $.future() (v) } ,fail_edge=function(v,visited,n) {;
+return $.future() (null) } ;
+return{node:node,node_repeat:node_repeat,node_cache:node_cache,filter_node:filter_node,linear_edge:linear_edge,silent_edge:silent_edge,fail_edge:fail_edge} } ) .call(this) } ) ;
